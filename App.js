@@ -67,7 +67,7 @@ const HomeScreen = ({navigation}) => {
     var formData = new FormData();
     formData.append('key', userInputValue);
 
-    fetch("http://www.webdev.cs.uregina.ca/~mpu236/API.php?action=login", {
+    fetch("YOUR_HOST_ADDRESS/API.php?action=login", {
         'method': 'POST',
         'headers': {
           'Accept': 'application/json',
