@@ -165,7 +165,7 @@ const MatchScreen = ({navigation}) => {
           var formData = new FormData();
           formData.append('clickdata', clickData);
 
-          fetch("http://www.webdev.cs.uregina.ca/~mpu236/API.php?action=retrievematchpage", {
+          fetch("YOUR_HOST_ADDRESS/API.php?action=retrievematchpage", {
               'method': 'POST',
               'headers': {
                 'Accept': 'application/json',
@@ -219,7 +219,7 @@ const MatchScreen = ({navigation}) => {
           var formData = new FormData();
           formData.append('clickdata', "");
 
-          fetch("http://www.webdev.cs.uregina.ca/~mpu236/API.php?action=resetmatch", {
+          fetch("YOUR_HOST_ADDRESS/API.php?action=resetmatch", {
               'method': 'POST',
               'headers': {
                 'Accept': 'application/json',

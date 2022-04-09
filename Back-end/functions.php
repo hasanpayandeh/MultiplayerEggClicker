@@ -34,7 +34,7 @@ function dbconnect($servername,$username,$password,$dbname)
   }
   
 }
-$conn=dbconnect("localhost","mpu236","@Xyz97557575","mpu236");
+$conn=dbconnect("localhost","YOUR_DATABASE_NAME","YOUR_DATABASE_USERNAME","YOUR_DATABASE_PASSWORD");
 
 /**
  * sqlread
