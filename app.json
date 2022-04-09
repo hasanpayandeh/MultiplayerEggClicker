@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "reactnativeproject-finalversion",
-    "slug": "snack-e355b891-0ef2-46e8-8266-2317652dffe7",
+    "name": "multiplayereggclicker",
+    "slug": "multiplayereggclicker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.hasanpayandeh.multiplayereggclicker"
     },
     "web": {
       "favicon": "./assets/favicon.png"
