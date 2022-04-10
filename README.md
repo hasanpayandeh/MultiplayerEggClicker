@@ -25,7 +25,7 @@
 - [Installation instructions](#installation-instructions)
 - [Features list](#features-list)
 - [Operating instructions (usage)](#operating-instructions-usage)
-- [Technical descriptions](#technical-descriptions)
+- [Technical descriptions and design pattern](#technical-descriptions-and-design-pattern)
 - [Manifest (list of files)](#manifest-list-of-files)
 - [Building instructions](#building-instructions)
 - [Configuration instructions](#configuration-instructions)
@@ -71,8 +71,8 @@
 
 
 
-## Technical descriptions
-The app is an online app that needs both **client-side** (developed by React Native) and **server-side** (developed by PHP and MySQL) development.<br>
+## Technical descriptions and design pattern
+We used the client-server design pattern to implement the application as the app is an online app. This pattern consists of **client-side** (developed by React Native) and **server-side** (developed by PHP and MySQL) development.<br>
 - The **client-side** is our mobile app where the players interact with the game, and it consists of the following parts:<br>
     1.	Login page: It gets the players' names and redirects them to the match page.<br>
     2.	Match page: It shows the players' names, scores, a clickable egg, the result of each round, and the result of the match, and a scoreboard.<br>
