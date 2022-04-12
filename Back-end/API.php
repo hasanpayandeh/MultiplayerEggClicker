@@ -109,7 +109,7 @@ elseif(isset($_GET["action"])&&$_GET["action"]=="retrievematchpage")
         }
         
         // This part checks if the main process was not locked, this part of the code executes. It will be locked if any other players are executing this part.
-        // The main process was described in the README file.
+        // Putting a lock is to prevent a player from changing data if another player is changing it.
         if(sqlread("settings","lockprocess","where id=1")*1==0)
         {
             $result = $conn->prepare("update settings set lockprocess=1 where id=1");
@@ -117,6 +117,7 @@ elseif(isset($_GET["action"])&&$_GET["action"]=="retrievematchpage")
 
             $str="";
 
+            // This part is for generating a string of players' names and their scores.
             $playersstr="";
             $sql=$conn->query("select * from players ORDER BY score DESC, id ASC");   
             while($row = $sql->fetch())
@@ -136,6 +137,7 @@ elseif(isset($_GET["action"])&&$_GET["action"]=="retrievematchpage")
                 $previousroundnumber=0;
             }
             
+            //creating the starting round of a match
             if(sqlnum("rounds","")==0)
             {
                 $param_roundstatus="wait";
@@ -147,10 +149,12 @@ elseif(isset($_GET["action"])&&$_GET["action"]=="retrievematchpage")
 
                 
             }
+            // This part (from lines 152 to 225) is related to the logic of showing different pages in the match screen to the players.
             else
             {
                 if(sqlread("rounds","winnername","where id=".$previousroundid."")!="")
                 {
+                    // If someone won the previous round and it had been 30 seconds since the start of the round. ---> a new round should be created.
                     if(sqlread("rounds","starttime","where id=".$previousroundid."")*1+30<=(time()))
                     {
                         $param_roundstatus="wait";
@@ -160,6 +164,7 @@ elseif(isset($_GET["action"])&&$_GET["action"]=="retrievematchpage")
                         $result = $conn->prepare("insert into rounds (number,winnername,starttime) values (".$param_roundnumber.",'',".$param_nextstatushappentimestamp.")");
                         $result->execute();
                     }
+                    // If someone won the previous round and it had been 20 seconds since the start of the round. ---> The results should be shown to the players for 10 seconds.
                     elseif(sqlread("rounds","starttime","where id=".$previousroundid."")*1+20<=(time()))
                     {
                         $param_roundstatus="result";
@@ -184,6 +189,7 @@ elseif(isset($_GET["action"])&&$_GET["action"]=="retrievematchpage")
                         }
                         
                     }
+                    // If someone won the previous round and it had been 10 seconds since the start of the round. ---> The players should see the results for 10 seconds.
                     elseif(sqlread("rounds","starttime","where id=".$previousroundid."")*1+10<=(time()))
                     {
                         $param_roundstatus="waitresult";
@@ -194,6 +200,7 @@ elseif(isset($_GET["action"])&&$_GET["action"]=="retrievematchpage")
                 }
                 else
                 {
+                    // If there were no winner for the previous round and it had been 20 seconds since the start of the round. ---> The players should see the results for 10 seconds.
                     // This part would set the winner if no one clicked.
                     if(sqlread("rounds","starttime","where id=".$previousroundid."")*1+20<=(time())) 
                     {
@@ -205,6 +212,7 @@ elseif(isset($_GET["action"])&&$_GET["action"]=="retrievematchpage")
                         $param_roundnumber=$previousroundnumber*1;
                         $param_statusdescription="Winner Name: no one!";
                     }
+                    // If there were no winner for the previous round and it had been 10 seconds since the start of the round. ---> The players should see the clickable egg for 10 seconds.
                     elseif(sqlread("rounds","starttime","where id=".$previousroundid."")*1+10<=(time()))
                     {
                         $param_roundstatus="egg";
@@ -212,6 +220,7 @@ elseif(isset($_GET["action"])&&$_GET["action"]=="retrievematchpage")
                         $param_roundnumber=$previousroundnumber*1;
                         $param_statusdescription="";
                     }
+                    // If there were no winner for the previous round and the round just started. ---> The players should wait 10 seconds for the egg to appear.
                     else
                     {
                         $param_roundstatus="wait";
