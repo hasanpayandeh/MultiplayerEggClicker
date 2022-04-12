@@ -13,7 +13,7 @@ include_once("functions.php");
 
 /**
  * API.php?action=login
- * Purpose: Executing server-side operations when a request comes from the client-side (from Home Screen)
+ * Purpose: Executing server-side operations when a request for login comes from the client-side (from Home Screen)
  * Parameter(s): -
  * Precondition(s): 
  * <1> The conn object, which contains the object for connecting to the database, should be defined.
@@ -23,10 +23,12 @@ include_once("functions.php");
  * Returns: The results of the server-side operations in JSON format
  * Side effect(s): 
  * <1> The "players" table data in the server-side database may be changed.
+ * More description:
+ * <1> The response pattern is "0,error text" (if the player failed to login) and "1,playerId,playerName" (if a player succeeds in login).
 */
 if(isset($_GET["action"])&&$_GET["action"]=="login")
 {
-    if(isset($_POST['key'])) // error check
+    if(isset($_POST['key']))
     {
         $_POST['key']=strtolower(trim($_POST['key']));
 
@@ -61,7 +63,7 @@ if(isset($_GET["action"])&&$_GET["action"]=="login")
 }
 /**
  * API.php?action=retrievematchpage
- * Purpose: Executing server-side operations when a request comes from the client-side (from Match Screen)
+ * Purpose: Executing server-side operations when a request for retrieving match page data comes from the client-side (from Match Screen)
  * Parameter(s): -
  * Precondition(s): 
  * <1> The conn object, which contains the object for connecting to the database, should be defined.
@@ -75,6 +77,8 @@ if(isset($_GET["action"])&&$_GET["action"]=="login")
  * <1> The "players" table data in the server-side database may be changed.
  * <2> The "settings" table data in the server-side database may be changed.
  * <3> The "rounds" table data in the server-side database may be changed.
+ * More description:
+ * <1> The response pattern is "player1-score1,player2-score2,...*round status(wait, result, egg, waitresult),next status happen timestamp,round number,status description".
 */
 elseif(isset($_GET["action"])&&$_GET["action"]=="retrievematchpage")
 {
