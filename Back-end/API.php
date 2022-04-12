@@ -24,7 +24,7 @@ include_once("functions.php");
  * Side effect(s): 
  * <1> The "players" table data in the server-side database may be changed.
  * More description:
- * <1> The response pattern is "0,error text" (if the player failed to login) and "1,playerId,playerName" (if a player succeeds in login).
+ * <1> The response pattern is "0,error text" (if the player failed to login) and "1,playerId,playerName" (if the player succeeds in login).
 */
 if(isset($_GET["action"])&&$_GET["action"]=="login")
 {
